@@ -6,7 +6,7 @@ with open('headers.json') as file: headers = loads(file.read())
 variables = "{\"focalTweetId\":\"twitter_id_pog\",\"with_rux_injections\":false,\"includePromotedContent\":true,\"withCommunity\":true,\"withQuickPromoteEligibilityTweetFields\":true,\"withBirdwatchNotes\":true,\"withSuperFollowsUserFields\":true,\"withDownvotePerspective\":true,\"withReactionsMetadata\":false,\"withReactionsPerspective\":false,\"withSuperFollowsTweetFields\":true,\"withVoice\":true,\"withV2Timeline\":true}"
 
 def main():
-	if 'twitter.com/' not in (inp:=input('Twitter URL (this isn\'t checked): ')):
+	if 'twitter.com/' not in (inp:=input('Twitter URL: ')):
 		print('please enter a valid twitter.com url')
 	twitter_id = inp.split('/')[-1].split('?')[0]
 
