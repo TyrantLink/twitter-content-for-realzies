@@ -9,7 +9,10 @@ variables = "{\"focalTweetId\":\"twitter_id_pog\",\"with_rux_injections\":false,
 def get_token() -> str:
 	headers.pop('x-guest-token',None)
 	res = post('https://api.twitter.com/1.1/guest/activate.json',headers=headers)
-	return res.json()['guest_token']
+	if res.status_code == 200: return res.json()['guest_token']
+	else:
+		print(f'unable to get tweet content: status code {res.status_code}')
+		return
 
 def get_tweet(twitter_id) -> Response:
 	res = get(
@@ -27,7 +30,8 @@ def main():
 
 	res = get_tweet(twitter_id)
 	if res.status_code != 200:
-		headers['x-guest-token'] = get_token()
+		if new_token:=get_token(): headers['x-guest-token'] = new_token
+		else: return
 		with open('headers.json','w') as file: file.write(dumps(headers,indent=2))
 		res = get_tweet(twitter_id)
 	
